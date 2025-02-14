@@ -32,24 +32,28 @@ exports.resolvers = {
         }
     },
     Mutation: {
+        signUp: async(parent, args) => {
+            let user = new User({
+                username: args.username,
+                email: args.email,
+                password: args.password,
+            })
+            return await user.save()
+        },
         addEmployee: async (parent, args) => {
             console.log(`Trying to insert employee with email: ${args.email}`)
 
-            // const isValidEmail = emailRegex.test(args.email)
-            // if (isValidEmail) {
                 let employee = new Employee({
                     firstname: args.firstname,
                     lastname: args.lastname,
                     email: args.email,
                     gender: args.gender.toLowerCase(),
-                    city: args.city,
                     designation: args.designation,
-                    salary: args.salary
+                    salary: args.salary,
+                    date_of_joining: args.date_of_joining,
+                    department: args.department,
+                    employee_photo: args.employee_photo,
                 })
-            // } else {
-            //     console.log(`Email not in valid format`)
-            //     throw new Error(`Email not in valid format`)
-            // }
             return await employee.save()
         },
         updateEmployee: async (parent, args) => {
@@ -63,9 +67,12 @@ exports.resolvers = {
                         firstname: args.firstname,
                         lastname: args.lastname,
                         gender: args.gender.toLowerCase(),
-                        city: args.city,
                         designation: args.designation,
-                        salary: args.salary
+                        salary: args.salary,
+                        date_of_joining: args.date_of_joining,
+                        department: args.department,
+                        employee_photo: args.employee_photo,
+                        updatedAt: Date.now
                 } },
                 {new : false},
                 (err, employee) => {
@@ -81,7 +88,11 @@ exports.resolvers = {
             )
         },
         deleteEmployee: async (parent, args) => {
-            
+            if (!args.id) {
+                console.log(`ID is not provided`)
+                return JSON.stringify({status: false, message: "Please provide Employee ID to update"})
+            }
+            return await Employee.findByIdAndDelete(args.id);
         },
     }
 }
