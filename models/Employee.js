@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const emailRegex = /^\S+@\S+\.\S+$/
 
 const EmployeeSchema = new mongoose.Schema({
     firstname: {
@@ -55,8 +56,7 @@ const EmployeeSchema = new mongoose.Schema({
     },
     createdAt: {
         type: Date,
-        default: Date.now,
-        alias: 'createdAt'
+        default: Date.now
     },
     updatedAt: {
         type: Date

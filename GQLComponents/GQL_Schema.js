@@ -9,8 +9,8 @@ exports.typeDefs = gql`
         username: String!,
         email: String!,
         password: String!,
-        createdAt: Date,
-        updatedAt: Date
+        createdAt: String,
+        updatedAt: String,
     }
     
     type Employee {
@@ -21,17 +21,17 @@ exports.typeDefs = gql`
         gender: String!,
         designation: String!,
         salary: Float!,
-        date_of_joining: Date!,
+        date_of_joining: String!,
         department: String!,
         employee_photo: String!,
-        createdAt: Date,
-        updatedAt: Date
+        createdAt: String,
+        updatedAt: String,
     }
     
     #Query type - defines operations for retrieving the data
     
     type Query {
-        login(username: String!, password: String!): Boolean!,
+        login(username: String!, password: String!): Boolean,
         getAllEmployees: [Employee],
         getEmployeeByID(_id: ID!): Employee,
         getEmployeeByDepOrDes(depOrDes: String): [Employee],
@@ -54,7 +54,7 @@ exports.typeDefs = gql`
             gender: String!,
             designation: String!,
             salary: Float!,
-            date_of_joining: Date!,
+            date_of_joining: String!,
             department: String!,
             employee_photo: String!,
         ): Employee,
@@ -66,7 +66,7 @@ exports.typeDefs = gql`
             gender: String!,
             designation: String!,
             salary: Float!,
-            date_of_joining: Date!,
+            date_of_joining: String!,
             department: String!,
             employee_photo: String!,
         ): Employee,
